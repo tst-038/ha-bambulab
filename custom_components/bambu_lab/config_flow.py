@@ -323,6 +323,7 @@ class BambuLabFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             "auth_token": self._bambu_cloud.auth_token,
             'device_type': device_type,
             'serial': device['dev_id'],
+            'config_dir': self.hass.config.path(),
         }
         bambu = BambuClient(config)
         result = await bambu.try_connection()

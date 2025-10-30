@@ -363,6 +363,7 @@ class BambuClient:
         self._callback = None
         self._test_mode = False
 
+        self._config_dir = config.get('dir', '/config')
         self._access_code = config.get('access_code', '')
         self._auth_token = config.get('auth_token', '')
         self._device_type = config.get('device_type', 'unknown').upper()
@@ -405,6 +406,10 @@ class BambuClient:
 
         self._device.print_job.prune_print_history_files()
         self._device.print_job.prune_timelapse_files()
+
+    @property
+    def config_dir(self) -> str:
+        return self._config_dir
 
     @property
     def settings(self):

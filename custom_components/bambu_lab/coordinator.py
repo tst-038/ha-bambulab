@@ -818,7 +818,7 @@ class BambuDataUpdateCoordinator(DataUpdateCoordinator):
     def get_file_cache_directory(self) -> Optional[str]:
         """Get the file cache directory for this printer."""
         serial = self.get_model().info.serial
-        return f"/config/www/media/ha-bambulab/{serial}"
+        return os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", serial)
     
     async def get_cached_files(self, file_type: str) -> List[Dict[str, Any]]:
         """Get list of cached files with metadata."""

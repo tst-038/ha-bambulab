@@ -1195,7 +1195,7 @@ class PrintJob:
             size = ftp.size(file_path)
             LOGGER.debug(f"File exists. Size: {size} bytes.")
             
-            cache_dir = f"/config/www/media/ha-bambulab/{self._client._serial}/prints"
+            cache_dir = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", self._client._serial, "prints")
             relative_path = file_path.lstrip('/')
             cache_file_path = os.path.join(cache_dir, relative_path)
 
@@ -1372,7 +1372,7 @@ class PrintJob:
         if self._client._test_mode:
             return
         LOGGER.debug("Pruning print history")
-        cache_file_path = f"/config/www/media/ha-bambulab/{self._client._serial}/prints"
+        cache_file_path = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", self._client._serial, "prints")
         self._prune_old_files(directory=cache_file_path,
                               extensions=['.3mf'],
                               keep=self._client._print_cache_count,
@@ -1382,7 +1382,7 @@ class PrintJob:
         if self._client._test_mode:
             return
         LOGGER.debug("Pruning timelapse history")
-        cache_file_path = f"/config/www/media/ha-bambulab/{self._client._serial}/timelapse"
+        cache_file_path = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", self._client._serial, "timelapse")
         self._prune_old_files(directory=cache_file_path,
                               extensions=['.mp4','.avi'],
                               keep=self._client._timelapse_cache_count,
@@ -1459,7 +1459,7 @@ class PrintJob:
         file_path = self._find_latest_file(ftp, ['/timelapse'], video_extensions)
         if file_path is not None:
             # timelapse_path is of form '/timelapse/foo.mp4'
-            cache_file_path = f"/config/www/media/ha-bambulab/{self._client._serial}"
+            cache_file_path = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", self._client._serial)
             local_file_path = os.path.join(cache_file_path, file_path.lstrip('/'))
             directory_path = os.path.dirname(local_file_path)
             os.makedirs(directory_path, exist_ok=True)
@@ -1968,7 +1968,7 @@ class PrintJob:
             # After successful upload, copy to cache path
             # Remove leading slash from remote_path for relative path
             relative_path = remote_path.lstrip('/')
-            cache_dir = f"/config/www/media/ha-bambulab/{self._client._serial}/prints"
+            cache_dir = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab", self._client._serial, "prints")
             cache_file_path = os.path.join(cache_dir, relative_path)
             os.makedirs(os.path.dirname(cache_file_path), exist_ok=True)
             try:

@@ -305,7 +305,7 @@ class EnsureCacheFileAPIView(HomeAssistantView):
                 return web.json_response({"error": f"Printer with serial {serial} not found"}, status=404)
 
             model = coordinator.get_model()
-            BASE_CACHE_DIR = "/config/www/media/ha-bambulab/"
+            BASE_CACHE_DIR = os.path.join(self._client.config_dir, "www", "media", "ha-bambulab")
             local_path = os.path.join(BASE_CACHE_DIR, cache_path)
             # local_path is of form '/config/www/media/ha-bambulab/<SERIAL>/prints/Fidgets_v14.3mf'
             #                    or '/config/www/media/ha-bambulab/<SERIAL>/prints/cache/Fidgets_v14.3mf'
